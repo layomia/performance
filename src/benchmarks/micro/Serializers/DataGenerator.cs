@@ -51,7 +51,22 @@ namespace MicroBenchmarks.Serializers
                 return (T)(object)new ArrayList(ValuesGenerator.ArrayOfUniqueValues<string>(100));
             if (typeof(T) == typeof(Hashtable))
                 return (T)(object)new Hashtable(ValuesGenerator.ArrayOfUniqueValues<string>(100).ToDictionary(value => value));
-
+            if (typeof(T) == typeof(Parameterless_Point))
+                return (T)(object)CreateParameterlessPoint();
+            if (typeof(T) == typeof(Parameterized_Point_1Arg))
+                return (T)(object)CreateParameterizedPoint1Arg();
+            if (typeof(T) == typeof(Parameterized_Point_2Args))
+                return (T)(object)CreateParameterizedPoint2Args();
+            if (typeof(T) == typeof(Parameterless_ClassWithPrimitives))
+                return (T)(object)CreateParameterlessClassWithPrimitives();
+            if (typeof(T) == typeof(Parameterized_ClassWithPrimitives_3Args))
+                return (T)(object)CreateParameterizedClassWithPrimitives3Args();
+            if (typeof(T) == typeof(Parameterized_ClassWithPrimitives_8Args))
+                return (T)(object)CreateParameterizedClassWithPrimitives8Args();
+            if (typeof(T) == typeof(Parameterized_IndexViewModel_1Arg))
+                return (T)(object)CreateParameterizedIndexViewModel1Arg();
+            if (typeof(T) == typeof(Parameterized_IndexViewModel_2Args))
+                return (T)(object)CreateParameterizedIndexViewModel2Args();
 
             throw new NotImplementedException();
         }
@@ -199,6 +214,152 @@ namespace MicroBenchmarks.Serializers
             xmlElement.InnerText = "Element innertext";
             return xmlElement;
         }
+
+        private static Parameterless_Point CreateParameterlessPoint()
+        {
+            var point = new Parameterless_Point();
+            point.X = 234235;
+            point.Y = 912874;
+            return point;
+        }
+
+        private static Parameterized_Point_1Arg CreateParameterizedPoint1Arg()
+        {
+            var point = new Parameterized_Point_1Arg(234235);
+            point.Y = 912874;
+            return point;
+        }
+
+        private static Parameterized_Point_2Args CreateParameterizedPoint2Args()
+        {
+            var point = new Parameterized_Point_2Args(234235, 912874);
+            return point;
+        }
+
+        private static Parameterless_ClassWithPrimitives CreateParameterlessClassWithPrimitives()
+        {
+            var point = new Parameterless_ClassWithPrimitives();
+
+            point.FirstInt = 348943;
+            point.SecondInt = 348943;
+            point.FirstString = "934sdkjfskdfssf";
+            point.SecondString = "sdad9434243242";
+            point.FirstDateTime = DateTime.Now;
+            point.SecondDateTime = DateTime.Now.AddHours(1).AddYears(1);
+
+            point.X = 234235;
+            point.Y = 912874;
+            point.Z = 434934;
+
+            point.ThirdInt = 348943;
+            point.FourthInt = 348943;
+            point.ThirdString = "934sdkjfskdfssf";
+            point.FourthString = "sdad9434243242";
+            point.ThirdDateTime = DateTime.Now;
+            point.FourthDateTime = DateTime.Now.AddHours(1).AddYears(1);
+
+            return point;
+        }
+
+        private static Parameterized_ClassWithPrimitives_3Args CreateParameterizedClassWithPrimitives3Args()
+        {
+            var point = new Parameterized_ClassWithPrimitives_3Args(x: 234235, y: 912874, z: 434934);
+
+            point.FirstInt = 348943;
+            point.SecondInt = 348943;
+            point.FirstString = "934sdkjfskdfssf";
+            point.SecondString = "sdad9434243242";
+            point.FirstDateTime = DateTime.Now;
+            point.SecondDateTime = DateTime.Now.AddHours(1).AddYears(1);
+
+            point.ThirdInt = 348943;
+            point.FourthInt = 348943;
+            point.ThirdString = "934sdkjfskdfssf";
+            point.FourthString = "sdad9434243242";
+            point.ThirdDateTime = DateTime.Now;
+            point.FourthDateTime = DateTime.Now.AddHours(1).AddYears(1);
+
+            return point;
+        }
+
+        private static Parameterized_ClassWithPrimitives_8Args CreateParameterizedClassWithPrimitives8Args()
+        {
+            var point = new Parameterized_ClassWithPrimitives_8Args(
+                firstDateTime: DateTime.Now,
+                secondDateTime: DateTime.Now.AddHours(1).AddYears(1),
+                x: 234235,
+                y: 912874,
+                z: 434934,
+                thirdInt: 348943,
+                fourthInt: 348943,
+                thirdString: "934sdkjfskdfssf");
+
+            point.FirstInt = 348943;
+            point.SecondInt = 348943;
+            point.FirstString = "934sdkjfskdfssf";
+            point.SecondString = "sdad9434243242";
+            point.FourthString = "sdad9434243242";
+            point.ThirdDateTime = DateTime.Now;
+            point.FourthDateTime = DateTime.Now.AddHours(1).AddYears(1);
+
+            return point;
+        }
+
+        private static Parameterized_IndexViewModel_1Arg CreateParameterizedIndexViewModel1Arg()
+            => new Parameterized_IndexViewModel_1Arg(isNewAccount: false)
+            {
+                FeaturedCampaign = new CampaignSummaryViewModel
+                {
+                    Description = "Very nice campaing",
+                    Headline = "The Headline",
+                    Id = 234235,
+                    OrganizationName = "The Company XYZ",
+                    ImageUrl = "https://www.dotnetfoundation.org/theme/img/carousel/foundation-diagram-content.png",
+                    Title = "Promoting Open Source"
+                },
+                ActiveOrUpcomingEvents = Enumerable.Repeat(
+                    new ActiveOrUpcomingEvent
+                    {
+                        Id = 10,
+                        CampaignManagedOrganizerName = "Name FamiltyName",
+                        CampaignName = "The very new campaing",
+                        Description = "The .NET Foundation works with Microsoft and the broader industry to increase the exposure of open source projects in the .NET community and the .NET Foundation. The .NET Foundation provides access to these resources to projects and looks to promote the activities of our communities.",
+                        EndDate = DateTime.UtcNow.AddYears(1),
+                        Name = "Just a name",
+                        ImageUrl = "https://www.dotnetfoundation.org/theme/img/carousel/foundation-diagram-content.png",
+                        StartDate = DateTime.UtcNow
+                    },
+                    count: 20).ToList()
+            };
+
+        private static Parameterized_IndexViewModel_2Args CreateParameterizedIndexViewModel2Args()
+            => new Parameterized_IndexViewModel_2Args(
+                featuredCampaign: new CampaignSummaryViewModel
+                {
+                    Description = "Very nice campaing",
+                    Headline = "The Headline",
+                    Id = 234235,
+                    OrganizationName = "The Company XYZ",
+                    ImageUrl = "https://www.dotnetfoundation.org/theme/img/carousel/foundation-diagram-content.png",
+                    Title = "Promoting Open Source"
+                },
+                isNewAccount: false
+                )
+            {
+                ActiveOrUpcomingEvents = Enumerable.Repeat(
+                    new ActiveOrUpcomingEvent
+                    {
+                        Id = 10,
+                        CampaignManagedOrganizerName = "Name FamiltyName",
+                        CampaignName = "The very new campaing",
+                        Description = "The .NET Foundation works with Microsoft and the broader industry to increase the exposure of open source projects in the .NET community and the .NET Foundation. The .NET Foundation provides access to these resources to projects and looks to promote the activities of our communities.",
+                        EndDate = DateTime.UtcNow.AddYears(1),
+                        Name = "Just a name",
+                        ImageUrl = "https://www.dotnetfoundation.org/theme/img/carousel/foundation-diagram-content.png",
+                        StartDate = DateTime.UtcNow
+                    },
+                    count: 20).ToList()
+            };
     }
 
     // the view models come from a real world app called "AllReady"
@@ -365,7 +526,153 @@ namespace MicroBenchmarks.Serializers
     }
 
     public class SimpleListOfInt : List<int> { }
-    
+
+    public class Parameterless_Point
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+    }
+
+    public class Parameterized_Point_1Arg
+    {
+        public int X { get; }
+        public int Y { get; set; }
+
+        public Parameterized_Point_1Arg(int x) => X = x;
+    }
+
+    public class Parameterized_Point_2Args
+    {
+        public int X { get; }
+        public int Y { get; }
+
+        public Parameterized_Point_2Args(int x, int y) => (X, Y) = (x, y);
+    }
+
+    public class Parameterless_ClassWithPrimitives
+    {
+        public int FirstInt { get; set; }
+        public int SecondInt { get; set; }
+
+        public string FirstString { get; set; }
+        public string SecondString { get; set; }
+
+        public DateTime FirstDateTime { get; set; }
+        public DateTime SecondDateTime { get; set; }
+
+        public int X { get; set;  }
+        public int Y { get; set;  }
+        public int Z { get; set; }
+
+        public int ThirdInt { get; set; }
+        public int FourthInt { get; set; }
+
+        public string ThirdString { get; set; }
+        public string FourthString { get; set; }
+
+        public DateTime ThirdDateTime { get; set; }
+        public DateTime FourthDateTime { get; set; }
+    }
+
+    public class Parameterized_ClassWithPrimitives_3Args
+    {
+        public int FirstInt { get; set; }
+        public int SecondInt { get; set; }
+
+        public string FirstString { get; set; }
+        public string SecondString { get; set; }
+
+        public DateTime FirstDateTime { get; set; }
+        public DateTime SecondDateTime { get; set; }
+
+        public int X { get; }
+        public int Y { get; }
+        public int Z { get; }
+
+        public int ThirdInt { get; set; }
+        public int FourthInt { get; set; }
+
+        public string ThirdString { get; set; }
+        public string FourthString { get; set; }
+
+        public DateTime ThirdDateTime { get; set; }
+        public DateTime FourthDateTime { get; set; }
+
+
+        public Parameterized_ClassWithPrimitives_3Args(int x, int y, int z) => (X, Y, Z) = (x, y, z);
+    }
+
+    public class Parameterized_ClassWithPrimitives_8Args
+    {
+        public int FirstInt { get; set; }
+        public int SecondInt { get; set; }
+
+        public string FirstString { get; set; }
+        public string SecondString { get; set; }
+
+        public DateTime FirstDateTime { get; }
+        public DateTime SecondDateTime { get; }
+        public int X { get; }
+        public int Y { get; }
+        public int Z { get; }
+        public int ThirdInt { get; }
+        public int FourthInt { get; }
+        public string ThirdString { get; }
+        
+        public string FourthString { get; set; }
+
+        public DateTime ThirdDateTime { get; set; }
+        public DateTime FourthDateTime { get; set; }
+
+
+        public Parameterized_ClassWithPrimitives_8Args(
+            DateTime firstDateTime,
+            DateTime secondDateTime,
+            int x,
+            int y,
+            int z,
+            int thirdInt,
+            int fourthInt,
+            string thirdString)
+        {
+            FirstDateTime = firstDateTime;
+            SecondDateTime = secondDateTime;
+            X = x;
+            Y = y;
+            Z = z;
+            ThirdInt = thirdInt;
+            FourthInt = fourthInt;
+            ThirdString = thirdString;
+        }
+    }
+
+    public class Parameterized_IndexViewModel_1Arg
+    {
+        public List<ActiveOrUpcomingEvent> ActiveOrUpcomingEvents { get; set; }
+        public CampaignSummaryViewModel FeaturedCampaign { get; set; }
+        public bool IsNewAccount { get; set; }
+        public bool HasFeaturedCampaign => FeaturedCampaign != null;
+
+        public Parameterized_IndexViewModel_1Arg(bool isNewAccount)
+        {
+            IsNewAccount = isNewAccount;
+        }
+    }
+
+    public class Parameterized_IndexViewModel_2Args
+    {
+        public List<ActiveOrUpcomingEvent> ActiveOrUpcomingEvents { get; set; }
+        public CampaignSummaryViewModel FeaturedCampaign { get; }
+        public bool IsNewAccount { get; }
+        public bool HasFeaturedCampaign => FeaturedCampaign != null;
+
+        public Parameterized_IndexViewModel_2Args(CampaignSummaryViewModel featuredCampaign, bool isNewAccount)
+        {
+            FeaturedCampaign = featuredCampaign;
+            IsNewAccount = isNewAccount;
+        }
+    }
+
     public class ClassImplementingIXmlSerialiable : IXmlSerializable
     {
         public string StringValue { get; set; }
