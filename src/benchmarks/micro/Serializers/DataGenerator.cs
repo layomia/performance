@@ -63,6 +63,12 @@ namespace MicroBenchmarks.Serializers
                 return (T)(object)CreateParameterizedClassWithPrimitives3Args();
             if (typeof(T) == typeof(Parameterized_ClassWithPrimitives_8Args))
                 return (T)(object)CreateParameterizedClassWithPrimitives8Args();
+            if (typeof(T) == typeof(Parameterless_ComplexClass))
+                return (T)(object)CreateParameterlessComplexClass();
+            if (typeof(T) == typeof(Parameterized_ComplexClass_2Args))
+                return (T)(object)CreateParameterizedComplexClass2Args();
+            if (typeof(T) == typeof(Parameterized_ComplexClass_8Args))
+                return (T)(object)CreateParameterizedComplexClass8Args();
             if (typeof(T) == typeof(Parameterized_IndexViewModel_1Arg))
                 return (T)(object)CreateParameterizedIndexViewModel1Arg();
             if (typeof(T) == typeof(Parameterized_IndexViewModel_2Args))
@@ -303,6 +309,152 @@ namespace MicroBenchmarks.Serializers
             point.FourthDateTime = DateTime.Now.AddHours(1).AddYears(1);
 
             return point;
+        }
+
+        private static Parameterless_ComplexClass CreateParameterlessComplexClass()
+        {
+            var obj = new Parameterless_ComplexClass();
+
+            obj.MyByte = 7;
+            obj.MySByte = 8;
+            obj.MyChar = 'a';
+            obj.MyString = "Hello";
+            obj.MyBooleanTrue = true;
+            obj.MyBooleanFalse = false;
+            obj.MySingle = 1.1f;
+            obj.MyDouble = 2.2d;
+            obj.MyDecimal = 3.3m;
+            obj.MyDateTime = new DateTime(2019, 1, 30, 12, 1, 2, DateTimeKind.Utc);
+            obj.MyDateTimeOffset = new DateTimeOffset(2019, 1, 30, 12, 1, 2, new TimeSpan(1, 0, 0));
+            obj.MyGuid = new Guid("1B33498A-7B7D-4DDA-9C13-F6AA4AB449A6");
+            obj.MyUri = new Uri("https://github.com/dotnet/runtime");
+            obj.MyInt16ThreeDimensionArray = new int[2][][];
+            obj.MyInt16ThreeDimensionArray[0] = new int[2][];
+            obj.MyInt16ThreeDimensionArray[1] = new int[2][];
+            obj.MyInt16ThreeDimensionArray[0][0] = new int[] { 11, 12 };
+            obj.MyInt16ThreeDimensionArray[0][1] = new int[] { 13, 14 };
+            obj.MyInt16ThreeDimensionArray[1][0] = new int[] { 21, 22 };
+            obj.MyInt16ThreeDimensionArray[1][1] = new int[] { 23, 24 };
+            obj.MyInt16ThreeDimensionList = new List<List<List<int>>>();
+            var list1 = new List<List<int>>();
+            obj.MyInt16ThreeDimensionList.Add(list1);
+            list1.Add(new List<int> { 11, 12 });
+            list1.Add(new List<int> { 13, 14 });
+            var list2 = new List<List<int>>();
+            obj.MyInt16ThreeDimensionList.Add(list2);
+            list2.Add(new List<int> { 21, 22 });
+            list2.Add(new List<int> { 23, 24 });
+            obj.MyStringList = new List<string>() { "Hello" };
+            obj.MyStringIList = new string[] { "Hello" };
+            obj.MyStringIEnumerableT = new string[] { "Hello" };
+            obj.MyStringIReadOnlyListT = new string[] { "Hello" };
+            obj.MyStringISetT = new HashSet<string> { "Hello" };
+            obj.MyStringToStringKeyValuePair = new KeyValuePair<string, string>("obj.MyKey", "obj.MyValue");
+            obj.MyStringToStringIDict = new Dictionary<string, string> { { "key", "value" } };
+            obj.MyStringToStringGenericDict = new Dictionary<string, string> { { "key", "value" } };
+            obj.MyStringToStringGenericIDict = new Dictionary<string, string> { { "key", "value" } };
+            obj.MyListOfNullString = new List<string> { null };
+
+            return obj;
+        }
+
+        private static Parameterized_ComplexClass_2Args CreateParameterizedComplexClass2Args()
+        {
+            var obj = new Parameterized_ComplexClass_2Args(1, 2);
+
+            obj.CtorArg1 = 1;
+            obj.CtorArg2 = 1;
+            obj.MyByte = 7;
+            obj.MySByte = 8;
+            obj.MyChar = 'a';
+            obj.MyString = "Hello";
+            obj.MyBooleanTrue = true;
+            obj.MyBooleanFalse = false;
+            obj.MySingle = 1.1f;
+            obj.MyDouble = 2.2d;
+            obj.MyDecimal = 3.3m;
+            obj.MyDateTime = new DateTime(2019, 1, 30, 12, 1, 2, DateTimeKind.Utc);
+            obj.MyDateTimeOffset = new DateTimeOffset(2019, 1, 30, 12, 1, 2, new TimeSpan(1, 0, 0));
+            obj.MyGuid = new Guid("1B33498A-7B7D-4DDA-9C13-F6AA4AB449A6");
+            obj.MyUri = new Uri("https://github.com/dotnet/runtime");
+            obj.MyInt16ThreeDimensionArray = new int[2][][];
+            obj.MyInt16ThreeDimensionArray[0] = new int[2][];
+            obj.MyInt16ThreeDimensionArray[1] = new int[2][];
+            obj.MyInt16ThreeDimensionArray[0][0] = new int[] { 11, 12 };
+            obj.MyInt16ThreeDimensionArray[0][1] = new int[] { 13, 14 };
+            obj.MyInt16ThreeDimensionArray[1][0] = new int[] { 21, 22 };
+            obj.MyInt16ThreeDimensionArray[1][1] = new int[] { 23, 24 };
+            obj.MyInt16ThreeDimensionList = new List<List<List<int>>>();
+            var list1 = new List<List<int>>();
+            obj.MyInt16ThreeDimensionList.Add(list1);
+            list1.Add(new List<int> { 11, 12 });
+            list1.Add(new List<int> { 13, 14 });
+            var list2 = new List<List<int>>();
+            obj.MyInt16ThreeDimensionList.Add(list2);
+            list2.Add(new List<int> { 21, 22 });
+            list2.Add(new List<int> { 23, 24 });
+            obj.MyStringList = new List<string>() { "Hello" };
+            obj.MyStringIList = new string[] { "Hello" };
+            obj.MyStringIEnumerableT = new string[] { "Hello" };
+            obj.MyStringIReadOnlyListT = new string[] { "Hello" };
+            obj.MyStringISetT = new HashSet<string> { "Hello" };
+            obj.MyStringToStringKeyValuePair = new KeyValuePair<string, string>("obj.MyKey", "obj.MyValue");
+            obj.MyStringToStringIDict = new Dictionary<string, string> { { "key", "value" } };
+            obj.MyStringToStringGenericDict = new Dictionary<string, string> { { "key", "value" } };
+            obj.MyStringToStringGenericIDict = new Dictionary<string, string> { { "key", "value" } };
+            obj.MyListOfNullString = new List<string> { null };
+
+            return obj;
+        }
+
+        private static Parameterized_ComplexClass_8Args CreateParameterizedComplexClass8Args()
+        {
+            var obj = new Parameterized_ComplexClass_8Args(
+                myBooleanTrue: true,
+                myUri: new Uri("https://github.com/dotnet/runtime"),
+                mySingle: 1.1f,
+                myStringList: new List<string>() { "Hello" },
+                ctorArg1: 1,
+                ctorArg2: 1,
+                myStringISetT: new HashSet<string> { "Hello" },
+                myStringToStringIDict: new Dictionary<string, string> { { "key", "value" } });
+
+            obj.MyByte = 7;
+            obj.MySByte = 8;
+            obj.MyChar = 'a';
+            obj.MyString = "Hello";
+            obj.MyBooleanFalse = false;
+            obj.MyDouble = 2.2d;
+            obj.MyDecimal = 3.3m;
+            obj.MyDateTime = new DateTime(2019, 1, 30, 12, 1, 2, DateTimeKind.Utc);
+            obj.MyDateTimeOffset = new DateTimeOffset(2019, 1, 30, 12, 1, 2, new TimeSpan(1, 0, 0));
+            obj.MyGuid = new Guid("1B33498A-7B7D-4DDA-9C13-F6AA4AB449A6");
+            obj.MyUri = new Uri("https://github.com/dotnet/runtime");
+            obj.MyInt16ThreeDimensionArray = new int[2][][];
+            obj.MyInt16ThreeDimensionArray[0] = new int[2][];
+            obj.MyInt16ThreeDimensionArray[1] = new int[2][];
+            obj.MyInt16ThreeDimensionArray[0][0] = new int[] { 11, 12 };
+            obj.MyInt16ThreeDimensionArray[0][1] = new int[] { 13, 14 };
+            obj.MyInt16ThreeDimensionArray[1][0] = new int[] { 21, 22 };
+            obj.MyInt16ThreeDimensionArray[1][1] = new int[] { 23, 24 };
+            obj.MyInt16ThreeDimensionList = new List<List<List<int>>>();
+            var list1 = new List<List<int>>();
+            obj.MyInt16ThreeDimensionList.Add(list1);
+            list1.Add(new List<int> { 11, 12 });
+            list1.Add(new List<int> { 13, 14 });
+            var list2 = new List<List<int>>();
+            obj.MyInt16ThreeDimensionList.Add(list2);
+            list2.Add(new List<int> { 21, 22 });
+            list2.Add(new List<int> { 23, 24 });
+            obj.MyStringIList = new string[] { "Hello" };
+            obj.MyStringIEnumerableT = new string[] { "Hello" };
+            obj.MyStringIReadOnlyListT = new string[] { "Hello" };
+            obj.MyStringToStringKeyValuePair = new KeyValuePair<string, string>("obj.MyKey", "obj.MyValue");
+            obj.MyStringToStringGenericDict = new Dictionary<string, string> { { "key", "value" } };
+            obj.MyStringToStringGenericIDict = new Dictionary<string, string> { { "key", "value" } };
+            obj.MyListOfNullString = new List<string> { null };
+
+            return obj;
         }
 
         private static Parameterized_IndexViewModel_1Arg CreateParameterizedIndexViewModel1Arg()
@@ -670,6 +822,73 @@ namespace MicroBenchmarks.Serializers
         {
             FeaturedCampaign = featuredCampaign;
             IsNewAccount = isNewAccount;
+        }
+    }
+
+    public class Parameterless_ComplexClass
+    {
+        public byte MyByte { get; set; }
+        public sbyte MySByte { get; set; }
+        public char MyChar { get; set; }
+        public string MyString { get; set; }
+        public decimal MyDecimal { get; set; }
+        public bool MyBooleanTrue { get; set; }
+        public bool MyBooleanFalse { get; set; }
+        public float MySingle { get; set; }
+        public double MyDouble { get; set; }
+        public DateTime MyDateTime { get; set; }
+        public DateTimeOffset MyDateTimeOffset { get; set; }
+        public Guid MyGuid { get; set; }
+        
+        public Uri MyUri { get; set; }
+        public int[][][] MyInt16ThreeDimensionArray { get; set; }
+        public List<List<List<int>>> MyInt16ThreeDimensionList { get; set; }
+
+        public int CtorArg1 { get; set; }
+        public int CtorArg2 { get; set; }
+
+        public List<string> MyStringList { get; set; }
+        public IList MyStringIList { get; set; }
+        public IEnumerable<string> MyStringIEnumerableT { get; set; }
+        
+        public IReadOnlyList<string> MyStringIReadOnlyListT { get; set; }
+        public ISet<string> MyStringISetT { get; set; }
+        public KeyValuePair<string, string> MyStringToStringKeyValuePair { get; set; }
+        public IDictionary MyStringToStringIDict { get; set; }
+        public Dictionary<string, string> MyStringToStringGenericDict { get; set; }
+        public IDictionary<string, string> MyStringToStringGenericIDict { get; set; }
+        public List<string> MyListOfNullString { get; set; }
+    }
+
+    public class Parameterized_ComplexClass_2Args : Parameterless_ComplexClass
+    {
+        public Parameterized_ComplexClass_2Args(int ctorArg1, int ctorArg2)
+        {
+            CtorArg1 = ctorArg1;
+            CtorArg2 = ctorArg2;
+        }
+    }
+
+    public class Parameterized_ComplexClass_8Args : Parameterless_ComplexClass
+    {
+        public Parameterized_ComplexClass_8Args(
+            bool myBooleanTrue,
+            Uri myUri,
+            float mySingle,
+            List<string> myStringList,
+            int ctorArg1,
+            int ctorArg2,
+            ISet<string> myStringISetT,
+            IDictionary myStringToStringIDict)
+        {
+            MyBooleanTrue = myBooleanTrue;
+            MyUri = myUri;
+            MySingle = mySingle;
+            MyStringList = myStringList;
+            CtorArg1 = ctorArg1;
+            CtorArg2 = ctorArg2;
+            MyStringISetT = myStringISetT;
+            MyStringToStringIDict = myStringToStringIDict;
         }
     }
 
