@@ -13,6 +13,7 @@ namespace System.Text.Json.Serialization.Tests
     [GenericTypeArguments(typeof(Parameterless_Point), typeof(Parameterized_Point_1Arg), typeof(Parameterized_Point_2Args))]
     [GenericTypeArguments(typeof(Parameterless_ClassWithPrimitives), typeof(Parameterized_ClassWithPrimitives_3Args), typeof(Parameterized_ClassWithPrimitives_8Args))]
     [GenericTypeArguments(typeof(IndexViewModel), typeof(Parameterized_IndexViewModel_1Arg), typeof(Parameterized_IndexViewModel_2Args))]
+    [GenericTypeArguments(typeof(Parameterless_ComplexClass), typeof(Parameterized_ComplexClass_2Args), typeof(Parameterized_ComplexClass_8Args))]
     public class ReadParameterizedConstructor<TTypeWithParameterlessCtor, TTypeWithParameterizedCtor1, TTypeWithParameterizedCtorType2>
     {
         private string _serialized0;
