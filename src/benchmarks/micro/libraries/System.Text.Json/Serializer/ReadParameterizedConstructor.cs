@@ -49,14 +49,14 @@ namespace System.Text.Json.Serialization.Tests
         // Scenario:
         // - Less than 7 constructor arguments
         // - Fewer arguments than the below benchmark; check type being deserialized for exact count.
-        // - JSON has constructor arguments first (the serializer will always produce this sort of order when serializing)
+        // - JSON has constructor arguments first (as an optimization, the serializer will always produce this sort of order when serializing).
         public TTypeWithParameterizedCtor1 Deserialize_Parameterized_LessArgs_CtorArgsFirstJsonOrder() => JsonSerializer.Deserialize<TTypeWithParameterizedCtor1>(_serialized1);
 
         [BenchmarkCategory(Categories.Libraries, Categories.JSON)]
         [Benchmark]
         // Scenario:
         // - More arguments than the above benchmark; check type being deserialized for exact count.
-        // - JSON has constructor arguments first (the serializer will always produce this sort of order when serializing)
+        // - JSON has constructor arguments first (as an optimization, the serializer will always produce this sort of order when serializing).
         public TTypeWithParameterizedCtorType2 Deserialize_Parameterized_MoreArgs_CtorArgsFirstJsonOrder() => JsonSerializer.Deserialize<TTypeWithParameterizedCtorType2>(_serialized2);
 
         [BenchmarkCategory(Categories.Libraries, Categories.JSON)]
@@ -64,14 +64,14 @@ namespace System.Text.Json.Serialization.Tests
         // Scenario:
         // - Less than 7 constructor arguments
         // - Fewer arguments than the below benchmark; check type being deserialized for exact count.
-        // - JSON has constructor arguments in the middle of the payload, representing "average" case where the input wasn't written by JsonSerializer.
+        // - JSON has constructor arguments in the middle of the payload, representing "average" case where the input wasn't written by the serializer.
         public TTypeWithParameterizedCtor1 Deserialize_Parameterized_LessArgs_AverageJsonOrder() => JsonSerializer.Deserialize<TTypeWithParameterizedCtor1>(_serialized0);
 
         [BenchmarkCategory(Categories.Libraries, Categories.JSON)]
         [Benchmark]
         // Scenario:
         // - More arguments than the above benchmark; check type being deserialized for exact count.
-        // - JSON has constructor arguments in the middle of the payload, representing "average" case where the input wasn't written by JsonSerializer.
+        // - JSON has constructor arguments in the middle of the payload, representing "average" case where the input wasn't written by the serializer.
         public TTypeWithParameterizedCtorType2 Deserialize_Parameterized_MoreArgs_AverageJsonOrder() => JsonSerializer.Deserialize<TTypeWithParameterizedCtorType2>(_serialized0);
     }
 
@@ -120,7 +120,7 @@ namespace System.Text.Json.Serialization.Tests
     //    // Scenario:
     //    // - Less than 7 constructor arguments
     //    // - Fewer arguments than the below benchmark; check type being deserialized for exact count.
-    //    // - JSON has constructor arguments first (the serializer will always produce this sort of order when serializing)
+    //    // - JSON has constructor arguments first (as an optimization, the serializer will always produce this sort of order when serializing).
     //    public async Task<TTypeWithParameterizedCtor1> DeserializeAsync_Parameterized_LessArgs_CtorArgsFirstJsonOrder()
     //    {
     //        _memoryStream1.Position = 0;
@@ -132,7 +132,7 @@ namespace System.Text.Json.Serialization.Tests
     //    [Benchmark]
     //    // Scenario:
     //    // - More arguments than the above benchmark; check type being deserialized for exact count.
-    //    // - JSON has constructor arguments first (the serializer will always produce this sort of order when serializing)
+    //    // - JSON has constructor arguments first (as an optimization, the serializer will always produce this sort of order when serializing).
     //    public async Task<TTypeWithParameterizedCtor2> DeserializeAsync_Parameterized_MoreArgs_CtorArgsFirstJsonOrder()
     //    {
     //        _memoryStream2.Position = 0;
@@ -145,7 +145,7 @@ namespace System.Text.Json.Serialization.Tests
     //    // Scenario:
     //    // - Less than 7 constructor arguments
     //    // - Fewer arguments than the below benchmark; check type being deserialized for exact count.
-    //    // - JSON has constructor arguments in the middle of the payload, representing "average" case where the input wasn't written by JsonSerializer.
+    //    // - JSON has constructor arguments in the middle of the payload, representing "average" case where the input wasn't written by the serializer.
     //    public async Task<TTypeWithParameterizedCtor1> DeserializeAsync_Parameterized_LessArgs_AverageJsonOrder()
     //    {
     //        _memoryStream0.Position = 0;
@@ -157,7 +157,7 @@ namespace System.Text.Json.Serialization.Tests
     //    [Benchmark]
     //    // Scenario:
     //    // - More arguments than the above benchmark; check type being deserialized for exact count.
-    //    // - JSON has constructor arguments in the middle of the payload, representing "average" case where the input wasn't written by JsonSerializer.
+    //    // - JSON has constructor arguments in the middle of the payload, representing "average" case where the input wasn't written by the serializer.
     //    public async Task<TTypeWithParameterizedCtor2> DeserializeAsync_Parameterized_MoreArgs_AverageJsonOrder()
     //    {
     //        _memoryStream0.Position = 0;
