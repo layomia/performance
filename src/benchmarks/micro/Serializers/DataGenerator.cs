@@ -51,6 +51,26 @@ namespace MicroBenchmarks.Serializers
                 return (T)(object)new ArrayList(ValuesGenerator.ArrayOfUniqueValues<string>(100));
             if (typeof(T) == typeof(Hashtable))
                 return (T)(object)new Hashtable(ValuesGenerator.ArrayOfUniqueValues<string>(100).ToDictionary(value => value));
+            if (typeof(T) == typeof(SimpleStructWithProperties_1Arg))
+                return (T)(object)new SimpleStructWithProperties_1Arg(text: "Foo") { Num = 1 };
+            if (typeof(T) == typeof(SimpleStructWithProperties_2Args))
+                return (T)(object)new SimpleStructWithProperties_2Args(num: 1, text: "Foo");
+            if (typeof(T) == typeof(Parameterized_LoginViewModel_1Arg))
+                return (T)(object)CreateParameterizedLoginViewModel1Arg();
+            if (typeof(T) == typeof(Parameterized_LoginViewModel_3Args))
+                return (T)(object)CreateParameterizedLoginViewModel3Args();
+            if (typeof(T) == typeof(Parameterized_Location_1Arg))
+                return (T)(object)CreateParameterizedLocation1Arg();
+            if (typeof(T) == typeof(Parameterized_Location_9Args))
+                return (T)(object)CreateParameterizedLocation9Args();
+            if (typeof(T) == typeof(Parameterized_IndexViewModel_1Arg))
+                return (T)(object)CreateParameterizedIndexViewModel1Arg();
+            if (typeof(T) == typeof(Parameterized_IndexViewModel_2Args))
+                return (T)(object)CreateParameterizedIndexViewModel2Args();
+            if (typeof(T) == typeof(Parameterized_MyEventsListerViewModel_1Arg))
+                return (T)(object)CreateParameterizedMyEventsListerViewModel1Arg();
+            if (typeof(T) == typeof(Parameterized_MyEventsListerViewModel_3Args))
+                return (T)(object)CreateParameterizedMyEventsListerViewModel3Args();
             if (typeof(T) == typeof(Parameterless_Point))
                 return (T)(object)CreateParameterlessPoint();
             if (typeof(T) == typeof(Parameterized_Point_1Arg))
@@ -69,10 +89,6 @@ namespace MicroBenchmarks.Serializers
                 return (T)(object)CreateParameterizedComplexClass2Args();
             if (typeof(T) == typeof(Parameterized_ComplexClass_8Args))
                 return (T)(object)CreateParameterizedComplexClass8Args();
-            if (typeof(T) == typeof(Parameterized_IndexViewModel_1Arg))
-                return (T)(object)CreateParameterizedIndexViewModel1Arg();
-            if (typeof(T) == typeof(Parameterized_IndexViewModel_2Args))
-                return (T)(object)CreateParameterizedIndexViewModel2Args();
 
             throw new NotImplementedException();
         }
@@ -220,6 +236,111 @@ namespace MicroBenchmarks.Serializers
             xmlElement.InnerText = "Element innertext";
             return xmlElement;
         }
+
+        private static Parameterized_LoginViewModel_1Arg CreateParameterizedLoginViewModel1Arg()
+            => new Parameterized_LoginViewModel_1Arg(email: "name.familyname@not.com")
+            {
+                Password = "abcdefgh123456!@",
+                RememberMe = true
+            };
+
+        private static Parameterized_LoginViewModel_3Args CreateParameterizedLoginViewModel3Args()
+            => new Parameterized_LoginViewModel_3Args(email: "name.familyname@not.com", password: "abcdefgh123456!@", rememberMe: true);
+
+        private static Parameterized_Location_1Arg CreateParameterizedLocation1Arg() =>
+            new Parameterized_Location_1Arg(id: 1234)
+            {
+                Address1 = "The Street Name",
+                Address2 = "20/11",
+                City = "The City",
+                State = "The State",
+                PostalCode = "abc-12",
+                Name = "Nonexisting",
+                PhoneNumber = "+0 11 222 333 44",
+                Country = "The Greatest"
+            };
+
+        private static Parameterized_Location_9Args CreateParameterizedLocation9Args() =>
+            new Parameterized_Location_9Args(
+                id: 1234,
+                address1: "The Street Name",
+                address2: "20/11",
+                city: "The City",
+                state: "The State",
+                postalCode: "abc-12",
+                name: "Nonexisting",
+                phoneNumber: "+0 11 222 333 44",
+                country: "The Greatest");
+
+        private static Parameterized_IndexViewModel_1Arg CreateParameterizedIndexViewModel1Arg()
+            => new Parameterized_IndexViewModel_1Arg(isNewAccount: false)
+            {
+                FeaturedCampaign = new CampaignSummaryViewModel
+                {
+                    Description = "Very nice campaing",
+                    Headline = "The Headline",
+                    Id = 234235,
+                    OrganizationName = "The Company XYZ",
+                    ImageUrl = "https://www.dotnetfoundation.org/theme/img/carousel/foundation-diagram-content.png",
+                    Title = "Promoting Open Source"
+                },
+                ActiveOrUpcomingEvents = Enumerable.Repeat(
+                    new ActiveOrUpcomingEvent
+                    {
+                        Id = 10,
+                        CampaignManagedOrganizerName = "Name FamiltyName",
+                        CampaignName = "The very new campaing",
+                        Description = "The .NET Foundation works with Microsoft and the broader industry to increase the exposure of open source projects in the .NET community and the .NET Foundation. The .NET Foundation provides access to these resources to projects and looks to promote the activities of our communities.",
+                        EndDate = DateTime.UtcNow.AddYears(1),
+                        Name = "Just a name",
+                        ImageUrl = "https://www.dotnetfoundation.org/theme/img/carousel/foundation-diagram-content.png",
+                        StartDate = DateTime.UtcNow
+                    },
+                    count: 20).ToList()
+            };
+
+        private static Parameterized_IndexViewModel_2Args CreateParameterizedIndexViewModel2Args()
+            => new Parameterized_IndexViewModel_2Args(
+                featuredCampaign: new CampaignSummaryViewModel
+                {
+                    Description = "Very nice campaing",
+                    Headline = "The Headline",
+                    Id = 234235,
+                    OrganizationName = "The Company XYZ",
+                    ImageUrl = "https://www.dotnetfoundation.org/theme/img/carousel/foundation-diagram-content.png",
+                    Title = "Promoting Open Source"
+                },
+                isNewAccount: false
+                )
+            {
+                ActiveOrUpcomingEvents = Enumerable.Repeat(
+                    new ActiveOrUpcomingEvent
+                    {
+                        Id = 10,
+                        CampaignManagedOrganizerName = "Name FamiltyName",
+                        CampaignName = "The very new campaing",
+                        Description = "The .NET Foundation works with Microsoft and the broader industry to increase the exposure of open source projects in the .NET community and the .NET Foundation. The .NET Foundation provides access to these resources to projects and looks to promote the activities of our communities.",
+                        EndDate = DateTime.UtcNow.AddYears(1),
+                        Name = "Just a name",
+                        ImageUrl = "https://www.dotnetfoundation.org/theme/img/carousel/foundation-diagram-content.png",
+                        StartDate = DateTime.UtcNow
+                    },
+                    count: 20).ToList()
+            };
+
+        private static Parameterized_MyEventsListerViewModel_1Arg CreateParameterizedMyEventsListerViewModel1Arg()
+            => new Parameterized_MyEventsListerViewModel_1Arg(currentEvents: Enumerable.Repeat(CreateMyEventsListerItem(), 3).ToList())
+            {
+                FutureEvents = Enumerable.Repeat(CreateMyEventsListerItem(), 9).ToList(),
+                PastEvents = Enumerable.Repeat(CreateMyEventsListerItem(), 60).ToList() // usually  there is a lot of historical data
+            };
+
+        private static Parameterized_MyEventsListerViewModel_3Args CreateParameterizedMyEventsListerViewModel3Args()
+            => new Parameterized_MyEventsListerViewModel_3Args(
+                currentEvents: Enumerable.Repeat(CreateMyEventsListerItem(), 3).ToList(),
+                futureEvents: Enumerable.Repeat(CreateMyEventsListerItem(), 9).ToList(),
+                pastEvents: Enumerable.Repeat(CreateMyEventsListerItem(), 60).ToList() // usually  there is a lot of historical data
+                );
 
         private static Parameterless_Point CreateParameterlessPoint()
         {
@@ -456,62 +577,6 @@ namespace MicroBenchmarks.Serializers
 
             return obj;
         }
-
-        private static Parameterized_IndexViewModel_1Arg CreateParameterizedIndexViewModel1Arg()
-            => new Parameterized_IndexViewModel_1Arg(isNewAccount: false)
-            {
-                FeaturedCampaign = new CampaignSummaryViewModel
-                {
-                    Description = "Very nice campaing",
-                    Headline = "The Headline",
-                    Id = 234235,
-                    OrganizationName = "The Company XYZ",
-                    ImageUrl = "https://www.dotnetfoundation.org/theme/img/carousel/foundation-diagram-content.png",
-                    Title = "Promoting Open Source"
-                },
-                ActiveOrUpcomingEvents = Enumerable.Repeat(
-                    new ActiveOrUpcomingEvent
-                    {
-                        Id = 10,
-                        CampaignManagedOrganizerName = "Name FamiltyName",
-                        CampaignName = "The very new campaing",
-                        Description = "The .NET Foundation works with Microsoft and the broader industry to increase the exposure of open source projects in the .NET community and the .NET Foundation. The .NET Foundation provides access to these resources to projects and looks to promote the activities of our communities.",
-                        EndDate = DateTime.UtcNow.AddYears(1),
-                        Name = "Just a name",
-                        ImageUrl = "https://www.dotnetfoundation.org/theme/img/carousel/foundation-diagram-content.png",
-                        StartDate = DateTime.UtcNow
-                    },
-                    count: 20).ToList()
-            };
-
-        private static Parameterized_IndexViewModel_2Args CreateParameterizedIndexViewModel2Args()
-            => new Parameterized_IndexViewModel_2Args(
-                featuredCampaign: new CampaignSummaryViewModel
-                {
-                    Description = "Very nice campaing",
-                    Headline = "The Headline",
-                    Id = 234235,
-                    OrganizationName = "The Company XYZ",
-                    ImageUrl = "https://www.dotnetfoundation.org/theme/img/carousel/foundation-diagram-content.png",
-                    Title = "Promoting Open Source"
-                },
-                isNewAccount: false
-                )
-            {
-                ActiveOrUpcomingEvents = Enumerable.Repeat(
-                    new ActiveOrUpcomingEvent
-                    {
-                        Id = 10,
-                        CampaignManagedOrganizerName = "Name FamiltyName",
-                        CampaignName = "The very new campaing",
-                        Description = "The .NET Foundation works with Microsoft and the broader industry to increase the exposure of open source projects in the .NET community and the .NET Foundation. The .NET Foundation provides access to these resources to projects and looks to promote the activities of our communities.",
-                        EndDate = DateTime.UtcNow.AddYears(1),
-                        Name = "Just a name",
-                        ImageUrl = "https://www.dotnetfoundation.org/theme/img/carousel/foundation-diagram-content.png",
-                        StartDate = DateTime.UtcNow
-                    },
-                    count: 20).ToList()
-            };
     }
 
     // the view models come from a real world app called "AllReady"
@@ -679,122 +744,94 @@ namespace MicroBenchmarks.Serializers
 
     public class SimpleListOfInt : List<int> { }
 
-    public class Parameterless_Point
+    public struct SimpleStructWithProperties_1Arg
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int Num { get; set; }
+        public string Text { get; }
+
+        //[JsonConstructor]
+        public SimpleStructWithProperties_1Arg(string text) => (Num, Text) = (0, text);
     }
 
-    public class Parameterized_Point_1Arg
+    public struct SimpleStructWithProperties_2Args
     {
-        public int X { get; }
-        public int Y { get; set; }
+        public int Num { get; set; }
+        public string Text { get; set; }
 
-        public Parameterized_Point_1Arg(int x) => X = x;
+        //[JsonConstructor]
+        public SimpleStructWithProperties_2Args(int num, string text) => (Num, Text) = (num, text);
     }
 
-    public class Parameterized_Point_2Args
+    public class Parameterized_LoginViewModel_1Arg
     {
-        public int X { get; }
-        public int Y { get; }
+        public string Password { get; set; }
+        public string Email { get; }
+        public bool RememberMe { get; set; }
 
-        public Parameterized_Point_2Args(int x, int y) => (X, Y) = (x, y);
+        public Parameterized_LoginViewModel_1Arg(string email) => Email = email;
     }
 
-    public class Parameterless_ClassWithPrimitives
+    public class Parameterized_LoginViewModel_3Args
     {
-        public int FirstInt { get; set; }
-        public int SecondInt { get; set; }
+        public string Email { get; }
+        public string Password { get; }
+        public bool RememberMe { get; }
 
-        public string FirstString { get; set; }
-        public string SecondString { get; set; }
-
-        public DateTime FirstDateTime { get; set; }
-        public DateTime SecondDateTime { get; set; }
-
-        public int X { get; set;  }
-        public int Y { get; set;  }
-        public int Z { get; set; }
-
-        public int ThirdInt { get; set; }
-        public int FourthInt { get; set; }
-
-        public string ThirdString { get; set; }
-        public string FourthString { get; set; }
-
-        public DateTime ThirdDateTime { get; set; }
-        public DateTime FourthDateTime { get; set; }
-    }
-
-    public class Parameterized_ClassWithPrimitives_3Args
-    {
-        public int FirstInt { get; set; }
-        public int SecondInt { get; set; }
-
-        public string FirstString { get; set; }
-        public string SecondString { get; set; }
-
-        public DateTime FirstDateTime { get; set; }
-        public DateTime SecondDateTime { get; set; }
-
-        public int X { get; }
-        public int Y { get; }
-        public int Z { get; }
-
-        public int ThirdInt { get; set; }
-        public int FourthInt { get; set; }
-
-        public string ThirdString { get; set; }
-        public string FourthString { get; set; }
-
-        public DateTime ThirdDateTime { get; set; }
-        public DateTime FourthDateTime { get; set; }
-
-
-        public Parameterized_ClassWithPrimitives_3Args(int x, int y, int z) => (X, Y, Z) = (x, y, z);
-    }
-
-    public class Parameterized_ClassWithPrimitives_8Args
-    {
-        public int FirstInt { get; set; }
-        public int SecondInt { get; set; }
-
-        public string FirstString { get; set; }
-        public string SecondString { get; set; }
-
-        public DateTime FirstDateTime { get; }
-        public DateTime SecondDateTime { get; }
-        public int X { get; }
-        public int Y { get; }
-        public int Z { get; }
-        public int ThirdInt { get; }
-        public int FourthInt { get; }
-        public string ThirdString { get; }
-        
-        public string FourthString { get; set; }
-
-        public DateTime ThirdDateTime { get; set; }
-        public DateTime FourthDateTime { get; set; }
-
-
-        public Parameterized_ClassWithPrimitives_8Args(
-            DateTime firstDateTime,
-            DateTime secondDateTime,
-            int x,
-            int y,
-            int z,
-            int thirdInt,
-            int fourthInt,
-            string thirdString)
+        public Parameterized_LoginViewModel_3Args(string email, string password, bool rememberMe)
         {
-            FirstDateTime = firstDateTime;
-            SecondDateTime = secondDateTime;
-            X = x;
-            Y = y;
-            Z = z;
-            ThirdInt = thirdInt;
-            FourthInt = fourthInt;
-            ThirdString = thirdString;
+            Email = email;
+            Password = password;
+            RememberMe = rememberMe;
+        }
+    }
+
+    public class Parameterized_Location_1Arg
+    {
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public int Id { get; }
+        public string PostalCode { get; set; }
+        public string Name { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Country { get; set; }
+
+        public Parameterized_Location_1Arg(int id) => Id = id;
+    }
+
+    public class Parameterized_Location_9Args
+    {
+        public int Id { get; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string PostalCode { get; set; }
+        public string Name { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Country { get; set; }
+
+        public Parameterized_Location_9Args(
+            int id,
+            string address1,
+            string address2,
+            string city,
+            string state,
+            string postalCode,
+            string name,
+            string phoneNumber,
+            string country)
+        {
+            Id = id;
+            Address1 = address1;
+            Address2 = address2;
+            City = city;
+            State = state;
+            PostalCode = postalCode;
+            Name = name;
+            PhoneNumber = phoneNumber;
+            Country = country;
         }
     }
 
@@ -825,6 +862,140 @@ namespace MicroBenchmarks.Serializers
         }
     }
 
+    public class Parameterized_MyEventsListerViewModel_1Arg
+    {
+        public List<MyEventsListerItem> FutureEvents { get; set; } = new List<MyEventsListerItem>();
+        public List<MyEventsListerItem> CurrentEvents { get; } = new List<MyEventsListerItem>();
+        public List<MyEventsListerItem> PastEvents { get; set; } = new List<MyEventsListerItem>();
+
+        public Parameterized_MyEventsListerViewModel_1Arg(List<MyEventsListerItem> currentEvents) => CurrentEvents = currentEvents;
+    }
+
+    public class Parameterized_MyEventsListerViewModel_3Args
+    {
+        public List<MyEventsListerItem> CurrentEvents { get; } = new List<MyEventsListerItem>();
+        public List<MyEventsListerItem> FutureEvents { get; set; } = new List<MyEventsListerItem>();
+        public List<MyEventsListerItem> PastEvents { get; set; } = new List<MyEventsListerItem>();
+
+        public Parameterized_MyEventsListerViewModel_3Args(
+            List<MyEventsListerItem> currentEvents,
+            List<MyEventsListerItem>  futureEvents,
+            List<MyEventsListerItem> pastEvents)
+        {
+            CurrentEvents = currentEvents;
+            FutureEvents = futureEvents;
+            PastEvents = pastEvents;
+        }
+    }
+
+    public class Parameterless_Point
+    {
+        public int Y { get; set; }
+        public int X { get; set; }
+    }
+
+    public class Parameterized_Point_1Arg
+    {
+        public int Y { get; set; }
+        public int X { get; }
+
+        public Parameterized_Point_1Arg(int x) => X = x;
+    }
+
+    public class Parameterized_Point_2Args
+    {
+        public int Y { get; }
+        public int X { get; }
+
+        public Parameterized_Point_2Args(int x, int y) => (X, Y) = (x, y);
+    }
+
+    public class Parameterless_Point_Struct
+    {
+        public int Y { get; set; }
+        public int X { get; set; }
+    }
+
+    public class Parameterless_ClassWithPrimitives
+    {
+        public int FirstInt { get; set; }
+        public int SecondInt { get; set; }
+        public string FirstString { get; set; }
+        public string SecondString { get; set; }
+        public DateTime FirstDateTime { get; set; }
+        public DateTime SecondDateTime { get; set; }
+        public int X { get; set;  }
+        public int Y { get; set;  }
+        public int Z { get; set; }
+        public int ThirdInt { get; set; }
+        public int FourthInt { get; set; }
+        public string ThirdString { get; set; }
+        public string FourthString { get; set; }
+        public DateTime ThirdDateTime { get; set; }
+        public DateTime FourthDateTime { get; set; }
+    }
+
+    public class Parameterized_ClassWithPrimitives_3Args
+    {
+        public int FirstInt { get; set; }
+        public int SecondInt { get; set; }
+        public string FirstString { get; set; }
+        public string SecondString { get; set; }
+        public DateTime FirstDateTime { get; set; }
+        public DateTime SecondDateTime { get; set; }
+        public int X { get; }
+        public int Y { get; }
+        public int Z { get; }
+        public int ThirdInt { get; set; }
+        public int FourthInt { get; set; }
+        public string ThirdString { get; set; }
+        public string FourthString { get; set; }
+        public DateTime ThirdDateTime { get; set; }
+        public DateTime FourthDateTime { get; set; }
+
+        public Parameterized_ClassWithPrimitives_3Args(int x, int y, int z) => (X, Y, Z) = (x, y, z);
+    }
+
+    public class Parameterized_ClassWithPrimitives_8Args
+    {
+        public int FirstInt { get; set; }
+        public int SecondInt { get; set; }
+        public string FirstString { get; set; }
+        public string SecondString { get; set; }
+        public DateTime FirstDateTime { get; }
+        public DateTime SecondDateTime { get; }
+        public int X { get; }
+        public int Y { get; }
+        public int Z { get; }
+        public int ThirdInt { get; }
+        public int FourthInt { get; }
+        public string ThirdString { get; }
+        public string FourthString { get; set; }
+        public DateTime ThirdDateTime { get; set; }
+        public DateTime FourthDateTime { get; set; }
+
+
+        public Parameterized_ClassWithPrimitives_8Args(
+            DateTime firstDateTime,
+            DateTime secondDateTime,
+            int x,
+            int y,
+            int z,
+            int thirdInt,
+            int fourthInt,
+            string thirdString)
+        {
+            FirstDateTime = firstDateTime;
+            SecondDateTime = secondDateTime;
+            X = x;
+            Y = y;
+            Z = z;
+            ThirdInt = thirdInt;
+            FourthInt = fourthInt;
+            ThirdString = thirdString;
+        }
+    }
+
     public class Parameterless_ComplexClass
     {
         public byte MyByte { get; set; }
@@ -839,18 +1010,14 @@ namespace MicroBenchmarks.Serializers
         public DateTime MyDateTime { get; set; }
         public DateTimeOffset MyDateTimeOffset { get; set; }
         public Guid MyGuid { get; set; }
-        
         public Uri MyUri { get; set; }
         public int[][][] MyInt16ThreeDimensionArray { get; set; }
         public List<List<List<int>>> MyInt16ThreeDimensionList { get; set; }
-
         public int CtorArg1 { get; set; }
         public int CtorArg2 { get; set; }
-
         public List<string> MyStringList { get; set; }
         public IList MyStringIList { get; set; }
         public IEnumerable<string> MyStringIEnumerableT { get; set; }
-        
         public IReadOnlyList<string> MyStringIReadOnlyListT { get; set; }
         public ISet<string> MyStringISetT { get; set; }
         public KeyValuePair<string, string> MyStringToStringKeyValuePair { get; set; }

@@ -18,12 +18,12 @@ namespace System.Text.Json.Serialization.Tests
     [GenericTypeArguments(typeof(IndexViewModel))]
     [GenericTypeArguments(typeof(MyEventsListerViewModel))]
     [GenericTypeArguments(typeof(BinaryData))]
-    //[GenericTypeArguments(typeof(Dictionary<string, string>))]
-    //[GenericTypeArguments(typeof(ImmutableDictionary<string, string>))]
-    //[GenericTypeArguments(typeof(ImmutableSortedDictionary<string, string>))]
-    //[GenericTypeArguments(typeof(HashSet<string>))]
-    //[GenericTypeArguments(typeof(ArrayList))]
-    //[GenericTypeArguments(typeof(Hashtable))]
+    [GenericTypeArguments(typeof(Dictionary<string, string>))]
+    [GenericTypeArguments(typeof(ImmutableDictionary<string, string>))]
+    [GenericTypeArguments(typeof(ImmutableSortedDictionary<string, string>))]
+    [GenericTypeArguments(typeof(HashSet<string>))]
+    [GenericTypeArguments(typeof(ArrayList))]
+    [GenericTypeArguments(typeof(Hashtable))]
     public class ReadJson<T>
     {
         private string _serialized;
