@@ -41,6 +41,8 @@ namespace MicroBenchmarks.Serializers
                 return (T)(object)new ClassImplementingIXmlSerialiable { StringValue = "Hello world" };
             if (typeof(T) == typeof(Dictionary<string, string>))
                 return (T)(object)ValuesGenerator.ArrayOfUniqueValues<string>(100).ToDictionary(value => value);
+            if (typeof(T) == typeof(Dictionary<int, int>))
+                return (T)(object)ValuesGenerator.ArrayOfUniqueValues<int>(100).ToDictionary(value => value);
             if (typeof(T) == typeof(ImmutableDictionary<string, string>))
                 return (T)(object)ImmutableDictionary.CreateRange(ValuesGenerator.ArrayOfUniqueValues<string>(100).ToDictionary(value => value));
             if (typeof(T) == typeof(ImmutableSortedDictionary<string, string>))
@@ -51,6 +53,8 @@ namespace MicroBenchmarks.Serializers
                 return (T)(object)new ArrayList(ValuesGenerator.ArrayOfUniqueValues<string>(100));
             if (typeof(T) == typeof(Hashtable))
                 return (T)(object)new Hashtable(ValuesGenerator.ArrayOfUniqueValues<string>(100).ToDictionary(value => value));
+            if (typeof(T) == typeof(SortedList))
+                return (T)(object)new SortedList(ValuesGenerator.ArrayOfUniqueValues<int>(100).ToDictionary(value => value));
             if (typeof(T) == typeof(LargeStructWithProperties))
                 return (T)(object)CreateLargeStructWithProperties();
             if (typeof(T) == typeof(int))

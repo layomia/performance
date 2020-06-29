@@ -13,20 +13,22 @@ using System.Threading.Tasks;
 
 namespace System.Text.Json.Serialization.Tests
 {
-    [GenericTypeArguments(typeof(LoginViewModel))]
-    [GenericTypeArguments(typeof(Location))]
-    [GenericTypeArguments(typeof(IndexViewModel))]
-    [GenericTypeArguments(typeof(MyEventsListerViewModel))]
-    [GenericTypeArguments(typeof(BinaryData))]
+    //[GenericTypeArguments(typeof(LoginViewModel))]
+    //[GenericTypeArguments(typeof(Location))]
+    //[GenericTypeArguments(typeof(IndexViewModel))]
+    //[GenericTypeArguments(typeof(MyEventsListerViewModel))]
+    //[GenericTypeArguments(typeof(BinaryData))]
     [GenericTypeArguments(typeof(Dictionary<string, string>))]
+    [GenericTypeArguments(typeof(Dictionary<int, string>))]
     [GenericTypeArguments(typeof(ImmutableDictionary<string, string>))]
     [GenericTypeArguments(typeof(ImmutableSortedDictionary<string, string>))]
-    [GenericTypeArguments(typeof(HashSet<string>))]
-    [GenericTypeArguments(typeof(ArrayList))]
+    //[GenericTypeArguments(typeof(HashSet<string>))]
+    //[GenericTypeArguments(typeof(ArrayList))]
     [GenericTypeArguments(typeof(Hashtable))]
-    [GenericTypeArguments(typeof(SimpleStructWithProperties))]
-    [GenericTypeArguments(typeof(LargeStructWithProperties))]
-    [GenericTypeArguments(typeof(int))]
+    [GenericTypeArguments(typeof(SortedList))]
+    //[GenericTypeArguments(typeof(SimpleStructWithProperties))]
+    //[GenericTypeArguments(typeof(LargeStructWithProperties))]
+    //[GenericTypeArguments(typeof(int))]
     public class WriteJson<T>
     {
         private T _value;
@@ -44,25 +46,25 @@ namespace System.Text.Json.Serialization.Tests
             _objectWithObjectProperty = new { Prop = (object)_value };
         }
 
-        [BenchmarkCategory(Categories.Libraries, Categories.JSON)]
-        [Benchmark]
-        public string SerializeToString() => JsonSerializer.Serialize(_value);
+        //[BenchmarkCategory(Categories.Libraries, Categories.JSON)]
+        //[Benchmark]
+        //public string SerializeToString() => JsonSerializer.Serialize(_value);
 
         [BenchmarkCategory(Categories.Libraries, Categories.JSON)]
         [Benchmark]
         public byte[] SerializeToUtf8Bytes() => JsonSerializer.SerializeToUtf8Bytes(_value);
 
-        [BenchmarkCategory(Categories.Libraries, Categories.JSON)]
-        [Benchmark]
-        public async Task SerializeToStream()
-        {
-            _memoryStream.Position = 0;
-            await JsonSerializer.SerializeAsync(_memoryStream, _value);
-        }
+        //[BenchmarkCategory(Categories.Libraries, Categories.JSON)]
+        //[Benchmark]
+        //public async Task SerializeToStream()
+        //{
+        //    _memoryStream.Position = 0;
+        //    await JsonSerializer.SerializeAsync(_memoryStream, _value);
+        //}
 
-        [BenchmarkCategory(Categories.Libraries, Categories.JSON)]
-        [Benchmark]
-        public string SerializeObjectProperty() => JsonSerializer.Serialize(_objectWithObjectProperty);
+        //[BenchmarkCategory(Categories.Libraries, Categories.JSON)]
+        //[Benchmark]
+        //public string SerializeObjectProperty() => JsonSerializer.Serialize(_objectWithObjectProperty);
 
         [GlobalCleanup]
         public void Cleanup() => _memoryStream.Dispose();
